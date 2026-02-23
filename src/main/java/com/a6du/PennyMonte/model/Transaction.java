@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.a6du.PennyMonte.enums.OperationType;
+import com.a6du.PennyMonte.enums.TransactionType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -64,13 +66,5 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     @Column(name = "operation_type")
     private OperationType operationType;
-
-    public enum OperationType {
-        CREATE, UPDATE, DELETE
-    }
-
-    public enum TransactionType {
-        INCOME, EXPENSE
-    }
 
 }
