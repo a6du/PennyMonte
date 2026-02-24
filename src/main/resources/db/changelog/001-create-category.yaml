@@ -9,7 +9,6 @@ databaseChangeLog:
               - column:
                   name: id
                   type: SERIAL
-                  autoIncrement: true
                   constraints:
                     primaryKey: true
               - column:
