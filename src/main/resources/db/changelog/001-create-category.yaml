@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-category
+      author: a6du
+      changes:
+        - createTable:
+            tableName: category
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: emoji
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: category_type
+                  type: VARCHAR(10)
+                  defaultValue: 'EXPENSE'
+                  constraints:
+                    nullable: false
+              - column:
+                  name: operation_type
+                  type: VARCHAR(10)
+                  defaultValue: 'CREATE'
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+              - column:
+                  name: version
+                  type: INT
+                  defaultValueNumeric: 1
+                  constraints:
+                    nullable: false

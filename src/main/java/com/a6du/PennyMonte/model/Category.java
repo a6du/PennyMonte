@@ -35,13 +35,14 @@ public class Category {
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-    
+
     @Column(name = "emoji", nullable = false, unique = true)
     private String emoji;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "category_type")
-    private TransactionType categoryType;
+    @Column(name = "category_type", nullable = false)
+    @Builder.Default
+    private TransactionType categoryType = TransactionType.EXPENSE;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -57,6 +58,7 @@ public class Category {
     private boolean isDeleted = false;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "operation_type")
-    private OperationType operationType;
+    @Column(name = "operation_type", nullable = false)
+    @Builder.Default
+    private OperationType operationType = OperationType.CREATE;
 }

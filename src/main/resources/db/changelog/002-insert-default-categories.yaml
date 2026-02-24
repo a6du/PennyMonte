@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-insert-default-categories
+      author: a6du
+      changes:
+        - insert:
+            tableName: category
+            columns:
+              - column: { name: name, value: "Food & Drinks" }
+              - column: { name: emoji, value: "🍽️" }
+              - column: { name: category_type, value: "EXPENSE" }
+
+        - insert:
+            tableName: category
+            columns:
+              - column: { name: name, value: "Salary" }
+              - column: { name: emoji, value: "💰" }
+              - column: { name: category_type, value: "INCOME" }
+
+        - insert:
+            tableName: category
+            columns:
+              - column: { name: name, value: "Travel" }
+              - column: { name: emoji, value: "🚗" }
+              - column: { name: category_type, value: "EXPENSE" }
