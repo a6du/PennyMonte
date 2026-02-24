@@ -32,7 +32,11 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
+    
+    @Column(name = "emoji", nullable = false, unique = true)
     private String emoji;
 
     @Enumerated(EnumType.STRING)
