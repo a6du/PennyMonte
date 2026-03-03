@@ -8,7 +8,6 @@ import jakarta.persistence.Version;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import com.a6du.PennyMonte.enums.OperationType;
 import com.a6du.PennyMonte.enums.TransactionType;
@@ -18,6 +17,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data; 
@@ -47,8 +47,12 @@ public class Category {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @PreUpdate
+    void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 
     @Version
     private int version;
