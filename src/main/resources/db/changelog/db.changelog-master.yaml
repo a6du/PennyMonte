@@ -8,3 +8,6 @@ databaseChangeLog:
   - include:
       file: 003-fix-category-version-default.yaml
       relativeToChangelogFile: true
+  - include:
+      file: 004-category-operation-type-to-system.yaml
+      relativeToChangelogFile: true

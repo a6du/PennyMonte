@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-category-operation-type-to-system
+      author: a6du
+      changes:
+        - update:
+            tableName: category
+            columns:
+              - column: { name: operation_type, value: "SYSTEM" }
+            where: "operation_type = 'CREATE'"
