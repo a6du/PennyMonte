@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-fix-category-version-default
+      author: a6du
+      changes:
+        - update:
+            tableName: category
+            columns:
+              - column:
+                  name: version
+                  valueNumeric: 0
+            where: version = 1
+        - dropDefaultValue:
+            tableName: category
+            columnName: version
+            columnDataType: INT
+        - addDefaultValue:
+            tableName: category
+            columnName: version
+            defaultValueNumeric: 0
+            columnDataType: INT

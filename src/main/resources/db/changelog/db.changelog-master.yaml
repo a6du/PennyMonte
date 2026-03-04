@@ -5,3 +5,6 @@ databaseChangeLog:
   - include:
       file: 002-insert-default-categories.yaml
       relativeToChangelogFile: true
+  - include:
+      file: 003-fix-category-version-default.yaml
+      relativeToChangelogFile: true
