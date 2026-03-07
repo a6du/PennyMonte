@@ -113,15 +113,27 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Handles JSON parsing errors
+     * Handles JSON parsing errors (including invalid enum values)
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, WebRequest request) {
+        String message = "Invalid JSON format in request body";
+        String error = "Malformed JSON request";
+
+        Throwable cause = ex.getCause();
+        if (cause != null) {
+            String causeMessage = cause.getMessage() != null ? cause.getMessage() : "";
+            if (causeMessage.contains("TransactionType") && causeMessage.contains("not one of the values")) {
+                message = "categoryType of INCOME or EXPENSE allowed";
+                error = "Invalid categoryType";
+            }
+        }
+
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.BAD_REQUEST.value())
-                .error("Malformed JSON request")
-                .message("Invalid JSON format in request body")
+                .error(error)
+                .message(message)
                 .path(request.getDescription(false).replace("uri=", ""))
                 .build();
 
