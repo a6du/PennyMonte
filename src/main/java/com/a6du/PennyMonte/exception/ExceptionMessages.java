@@ -1,7 +1,9 @@
 package com.a6du.PennyMonte.exception;
 
 public enum ExceptionMessages {
-    CATEGORY_NOT_FOUND("Category not found with id ");
+    CATEGORY_NOT_FOUND("Category not found with id "),
+    CATEGORY_NAME_ALREADY_EXISTS("Category name already exists"),
+    CATEGORY_EMOJI_ALREADY_IN_USE("Category emoji already in use");
 
     private final String message;
 

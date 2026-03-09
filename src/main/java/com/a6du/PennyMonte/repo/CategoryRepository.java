@@ -12,5 +12,8 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     @Query("SELECT c FROM Category c WHERE c.id = :id AND c.isDeleted = false")
     Optional<Category> findByIdAndNotDeleted(@Param("id") Integer id);
-    
+
+    boolean existsByNameAndIsDeletedFalse(String name);
+
+    boolean existsByEmojiAndIsDeletedFalse(String emoji);
 }

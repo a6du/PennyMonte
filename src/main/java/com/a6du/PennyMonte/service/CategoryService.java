@@ -26,9 +26,14 @@ public class CategoryService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionMessages.CATEGORY_NOT_FOUND.withId(id)));
     }
 
-        //Add media
-        public Category addCategory(CategoryCreateRequestDto request) {
-            Category category = CategoryTransformer.toEntity(request, OperationType.CREATE);
-            return categoryRepository.save(category);
+    public Category addCategory(CategoryCreateRequestDto request) {
+        if (categoryRepository.existsByNameAndIsDeletedFalse(request.name())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, ExceptionMessages.CATEGORY_NAME_ALREADY_EXISTS.getMessage());
         }
+        if (categoryRepository.existsByEmojiAndIsDeletedFalse(request.emoji())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, ExceptionMessages.CATEGORY_EMOJI_ALREADY_IN_USE.getMessage());
+        }
+        Category category = CategoryTransformer.toEntity(request, OperationType.CREATE);
+        return categoryRepository.save(category);
+    }
 }
