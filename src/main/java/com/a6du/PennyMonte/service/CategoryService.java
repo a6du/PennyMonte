@@ -22,7 +22,7 @@ public class CategoryService {
 
     //Get category by id
     public Category getCategoryById(int id) {
-        return categoryRepository.findByIdAndNotDeleted(id)
+        return categoryRepository.findByIdAndIsDeletedFalse(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionMessages.CATEGORY_NOT_FOUND.withId(id)));
     }
 
