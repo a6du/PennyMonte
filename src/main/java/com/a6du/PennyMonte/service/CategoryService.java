@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.a6du.PennyMonte.dto.category.CategoryCreateRequestDto;
+import com.a6du.PennyMonte.dto.category.CategoryResponseDto;
 import com.a6du.PennyMonte.enums.OperationType;
 import com.a6du.PennyMonte.exception.ExceptionMessages;
 import com.a6du.PennyMonte.model.Category;
@@ -21,12 +22,13 @@ public class CategoryService {
     }
 
     //Get category by id
-    public Category getCategoryById(int id) {
-        return categoryRepository.findByIdAndIsDeletedFalse(id)
+    public CategoryResponseDto getCategoryById(int id) {
+        Category category = categoryRepository.findByIdAndIsDeletedFalse(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionMessages.CATEGORY_NOT_FOUND.withId(id)));
+        return CategoryTransformer.toResponseDto(category);
     }
 
-    public Category addCategory(CategoryCreateRequestDto request) {
+    public CategoryResponseDto addCategory(CategoryCreateRequestDto request) {
         if (categoryRepository.existsByNameAndIsDeletedFalse(request.name())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, ExceptionMessages.CATEGORY_NAME_ALREADY_EXISTS.getMessage());
         }
@@ -34,6 +36,7 @@ public class CategoryService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, ExceptionMessages.CATEGORY_EMOJI_ALREADY_IN_USE.getMessage());
         }
         Category category = CategoryTransformer.toEntity(request, OperationType.CREATE);
-        return categoryRepository.save(category);
+        Category savedCategory = categoryRepository.save(category);
+        return CategoryTransformer.toResponseDto(savedCategory);
     }
 }

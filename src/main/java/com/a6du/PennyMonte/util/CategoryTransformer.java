@@ -1,6 +1,7 @@
 package com.a6du.PennyMonte.util;
 
 import com.a6du.PennyMonte.dto.category.CategoryCreateRequestDto;
+import com.a6du.PennyMonte.dto.category.CategoryResponseDto;
 import com.a6du.PennyMonte.enums.OperationType;
 import com.a6du.PennyMonte.model.Category;
 
@@ -17,5 +18,14 @@ public final class CategoryTransformer {
                 .categoryType(request.categoryType())
                 .operationType(operationType)
                 .build();
+    }
+
+    public static CategoryResponseDto toResponseDto(Category category) {
+        return new CategoryResponseDto(
+                category.getId(),
+                category.getName(),
+                category.getEmoji(),
+                category.getCategoryType()
+        );
     }
 }

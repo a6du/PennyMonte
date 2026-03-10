@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.a6du.PennyMonte.dto.category.CategoryCreateRequestDto;
-import com.a6du.PennyMonte.model.Category;
+import com.a6du.PennyMonte.dto.category.CategoryResponseDto;
 import com.a6du.PennyMonte.service.CategoryService;
 
 import jakarta.validation.Valid;
@@ -26,14 +26,14 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable int id) {
-        Category category = categoryService.getCategoryById(id);
+    public ResponseEntity<CategoryResponseDto> getCategoryById(@PathVariable int id) {
+        CategoryResponseDto category = categoryService.getCategoryById(id);
         return ResponseEntity.ok(category);
     }
 
     @PostMapping
-    public ResponseEntity<Category> addCategory(@RequestBody @Valid CategoryCreateRequestDto request) {
-        Category savedCategory = categoryService.addCategory(request);
+    public ResponseEntity<CategoryResponseDto> addCategory(@RequestBody @Valid CategoryCreateRequestDto request) {
+        CategoryResponseDto savedCategory = categoryService.addCategory(request);
         return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
     }
 }
